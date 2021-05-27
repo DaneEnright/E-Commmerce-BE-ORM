@@ -8,7 +8,7 @@ const { Category, Product } = require("../../models");
 router.get("/", async (req, res) => {
   try {
     const categoryProductData = await Category.findAll({
-      incldue: [{ model: Product }],
+      include: [Product],
     });
     res.status(200).json(categoryProductData);
   } catch (err) {
@@ -48,7 +48,7 @@ router.post("/", async (req, res) => {
 // update a category by its `id` value
 router.put("/:id", async (req, res) => {
   try {
-    const categoryProductData = await Category.update({
+    const categoryProductData = await Category.update(req.body, {
       where: {
         id: req.params.id,
       },
